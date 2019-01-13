@@ -37,11 +37,11 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 		<!--because of Auto configuration spring will automatically use default configurations that are found in classpath-->
-		<!--<dependency>-->
-			<!--<groupId>com.h2database</groupId>-->
-			<!--<artifactId>h2</artifactId>-->
-			<!--<version>1.4.197</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.197</version>
+		</dependency>
 
 
 		<dependency>
