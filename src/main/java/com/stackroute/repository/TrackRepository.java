@@ -8,5 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TrackRepository extends CrudRepository<Track, Integer> {
     @Query
-    public Track findByName(String name);
+     Track findByName(String name);
+
+     Track findById(int id);
 }

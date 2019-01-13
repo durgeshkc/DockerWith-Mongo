@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -56,8 +57,9 @@ public class TrackController {
     {
         try
         {
-            trackServiceImpl.deleteTrack(id);
-            return new ResponseEntity<String>("Deleted successfully",HttpStatus.OK);
+            Track trackDeleted = trackServiceImpl.deleteTrack(id);
+           // return new ResponseEntity<String>("Deleted successfully",HttpStatus.OK);
+            return new ResponseEntity<Track>(trackDeleted,HttpStatus.OK);
         }
         catch (TrackNotFound e)
         {

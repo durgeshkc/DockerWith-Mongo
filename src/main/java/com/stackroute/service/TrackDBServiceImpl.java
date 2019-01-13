@@ -46,14 +46,18 @@ public class TrackDBServiceImpl implements TrackServiceImpl {
     }
 
     @Override
-    public void deleteTrack(int id) throws TrackNotFound {
+    public Track deleteTrack(int id) throws TrackNotFound {
         if(!trackRepository.existsById(id))
         {
             throw new TrackNotFound("Track not found");
             //return true;
         }
         else
-           trackRepository.deleteById(id);
+        {
+            Track track1 =  trackRepository.findById(id);
+            trackRepository.deleteById(id);
+            return track1;
+        }
     }
 
 //    @Override
@@ -71,12 +75,12 @@ public class TrackDBServiceImpl implements TrackServiceImpl {
 //
     @Override
     public Track updateTrack(int id, String comment)  throws SameCommentExists {
-        Optional<Track> track1 =  trackRepository.findById(id);
+        Track track1 =  trackRepository.findById(id);
         //trackRepository.deleteById(track.getId());
-        if(!track1.get().getComment().equals(comment))
+        if(!track1.getComment().equals(comment))
         {
-            track1.get().setComment(comment);
-            return trackRepository.save(track1.get());
+            track1.setComment(comment);
+            return trackRepository.save(track1);
         }
         else
             throw new SameCommentExists("This Comment is already present");
