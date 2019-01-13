@@ -1,11 +1,11 @@
 package com.stackroute.controller;
 
 import com.stackroute.domain.Track;
-import com.stackroute.exception.CommentAlreadyThere;
-import com.stackroute.exception.ListIsEmpty;
-import com.stackroute.exception.TrackNotFoundException;
-import com.stackroute.exception.TrackPresentAlready;
-import com.stackroute.service.TrackService;
+import com.stackroute.exception.SameCommentExists;
+import com.stackroute.exception.TracksNotAvailable;
+import com.stackroute.exception.TrackNotFound;
+import com.stackroute.exception.TrackAlreadyPresent;
+import com.stackroute.service.TrackServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,21 +20,21 @@ import java.util.List;
 public class TrackController {
 
 
-    private TrackService trackService;
+    private TrackServiceImpl trackServiceImpl;
     @Autowired
-    public TrackController(TrackService trackService) {
-        this.trackService = trackService;
+    public TrackController(TrackServiceImpl trackServiceImpl) {
+        this.trackServiceImpl = trackServiceImpl;
     }
-    public void setTrackService(TrackService trackService) {
-        this.trackService = trackService;
+    public void setTrackServiceImpl(TrackServiceImpl trackServiceImpl) {
+        this.trackServiceImpl = trackServiceImpl;
     }
 //for adding a track::::::::::::::::::::::::::::::::::::::::::::::
     @PostMapping(value = "track")
     public ResponseEntity<?> saveTrack(@RequestBody Track track) {
         try {
-            Track track1 = trackService.saveTrack(track);
+            Track track1 = trackServiceImpl.saveTrack(track);
             return new ResponseEntity<Track>(track1, HttpStatus.OK);
-        }catch (TrackPresentAlready ex) {
+        }catch (TrackAlreadyPresent ex) {
             return new ResponseEntity<String> (ex.getMessage(),HttpStatus.CONFLICT);
         }
     }
@@ -43,9 +43,9 @@ public class TrackController {
     public ResponseEntity<?> listOfTrack() {
         try
         {
-            List<Track> allTrack = trackService.getAllTrack();
+            List<Track> allTrack = trackServiceImpl.getAllTracks();
             return new ResponseEntity<List<Track>>(allTrack, HttpStatus.OK);
-        }catch(ListIsEmpty e) {
+        }catch(TracksNotAvailable e) {
             return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
@@ -56,24 +56,37 @@ public class TrackController {
     {
         try
         {
-            trackService.deleteTrack(id);
+            trackServiceImpl.deleteTrack(id);
             return new ResponseEntity<String>("Deleted successfully",HttpStatus.OK);
         }
-        catch (TrackNotFoundException e)
+        catch (TrackNotFound e)
         {
             return new ResponseEntity<String >(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 //for updating comments :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    @PostMapping(value = "update/{comment}/{id}")
-    public ResponseEntity<?> updateComment(@PathVariable("id") String id,@PathVariable("comment") String comment)
+//    @PostMapping(value = "update/{comment}/{id}")
+//    public ResponseEntity<?> updateTrack(@PathVariable("id") String id, @PathVariable("comment") String comment)
+//    {
+//        try
+//        {
+//            return new ResponseEntity<Track>(trackServiceImpl.updateTrack(Integer.parseInt(id),comment),HttpStatus.OK);
+//        }catch (SameCommentExists e)
+//        {
+//            return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+//        }
+//    }
+
+    @PutMapping(value = "update/{id}")
+    public ResponseEntity<?> updateTrack(@PathVariable("id") int id,@RequestBody String comment)
     {
         try
         {
-            return new ResponseEntity<Track>(trackService.updateComment(Integer.parseInt(id),comment),HttpStatus.OK);
-        }catch (CommentAlreadyThere e)
+            return new ResponseEntity<Track>(trackServiceImpl.updateTrack(id,comment),HttpStatus.OK);
+        }catch (SameCommentExists e)
         {
             return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
         }
     }
+
 }
