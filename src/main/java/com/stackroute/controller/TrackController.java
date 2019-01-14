@@ -40,12 +40,23 @@ public class TrackController {
     }
 //for viewing list of all tracks::::::::::::::::::::::::::::::::::::::::::::::::
     @GetMapping(value = "tracks")
-    public ResponseEntity<?> listOfTrack() {
+    public ResponseEntity<?> listOfTracks() {
         try
         {
             List<Track> allTrack = trackServiceImpl.getAllTracks();
             return new ResponseEntity<List<Track>>(allTrack, HttpStatus.OK);
         }catch(TracksNotAvailable e) {
+            return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+    //for finding track by name.........
+    @GetMapping(value = "track/{name}")
+    public ResponseEntity<?> getTrackByName(@PathVariable("name") String name) {
+        try
+        {
+            Track track = trackServiceImpl.findByName(name);
+            return new ResponseEntity<Track>(track, HttpStatus.OK);
+        }catch(TrackNotFound e) {
             return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }

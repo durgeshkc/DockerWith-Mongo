@@ -87,4 +87,16 @@ public class TrackDBServiceImpl implements TrackServiceImpl {
     }
 
 
+    @Override
+    public Track findByName(String name) throws TrackNotFound {
+        Track track1 =  trackRepository.findByName(name);
+        if(track1== null)
+        {
+            throw new TrackNotFound("Track not found");
+        }
+        else
+        {
+            return track1;
+        }
+    }
 }

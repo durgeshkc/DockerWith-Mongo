@@ -16,4 +16,6 @@ public interface TrackServiceImpl {
     public Track deleteTrack(int id) throws TrackNotFound;
    // public Track updateTrack(int id, String comment) throws SameCommentExists;
    public Track updateTrack(int id,String comment) throws SameCommentExists;
+
+   Track findByName(String name) throws TrackNotFound;
 }
