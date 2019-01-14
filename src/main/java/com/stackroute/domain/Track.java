@@ -1,11 +1,16 @@
 package com.stackroute.domain;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+//import javax.persistence.*;
+import java.util.Collections;
+
+@Document(collection = "Track")
 public class Track {
+
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     //@Column
     private String name;
