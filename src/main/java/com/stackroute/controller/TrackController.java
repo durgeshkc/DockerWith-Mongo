@@ -16,9 +16,8 @@ import java.util.List;
 
 @RestController
 //Use an interface that can be implemented by UserService and UserAWSService
-@RequestMapping("api/v1/")
+@RequestMapping("api/v2")
 public class TrackController {
-
 
     private TrackServiceImpl trackServiceImpl;
     @Autowired
