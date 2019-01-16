@@ -11,11 +11,11 @@ import java.util.Optional;
 
 public interface TrackServiceImpl {
     public Track saveTrack(Track track) throws TrackAlreadyPresent;
-    public List<Track> getAllTracks() throws TracksNotAvailable;
+    List<Track> getAllTracks() throws TracksNotAvailable;
     //public void deleteTrack(int id) throws TrackNotFound;
-    public Track deleteTrack(int id) throws TrackNotFound;
-   // public Track updateTrack(int id, String comment) throws SameCommentExists;
-   public Track updateTrack(int id,String comment) throws SameCommentExists;
+    Track deleteTrack(int id) throws TrackNotFound;
+    // public Track updateTrack(int id, String comment) throws SameCommentExists;
+    Track updateTrack(int id,String comment) throws SameCommentExists;
 
-   Track findByName(String name) throws TrackNotFound;
+    Track findByName(String name) throws TrackNotFound;
 }

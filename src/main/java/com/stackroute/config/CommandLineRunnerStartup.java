@@ -10,8 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 
 //import java.util.logging.Logger;
 
-
 @Component
+
 public class CommandLineRunnerStartup implements CommandLineRunner {
     TrackRepository trackRepository;
 

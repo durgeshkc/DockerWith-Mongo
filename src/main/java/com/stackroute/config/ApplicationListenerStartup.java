@@ -18,7 +18,7 @@ public class ApplicationListenerStartup implements ApplicationListener<ContextRe
    // private static final Logger log = LoggerFactory.getLogger(ApplicationListenerStartup.class);
    private static final Logger log = LoggerFactory.getLogger(ApplicationListenerStartup.class);
 
-    @Value("${id1}")
+    @Value("${id1}")            //to remove the hardcoded data/////////////////
     private int idOne;
     @Value("${name1}")
     private String nameOne;
@@ -33,6 +33,7 @@ public class ApplicationListenerStartup implements ApplicationListener<ContextRe
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+
 
         log.info("Here we will enter the initial data to our database");
 

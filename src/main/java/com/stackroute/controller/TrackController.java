@@ -24,10 +24,12 @@ public class TrackController {
     public TrackController(TrackServiceImpl trackServiceImpl) {
         this.trackServiceImpl = trackServiceImpl;
     }
+
     public void setTrackServiceImpl(TrackServiceImpl trackServiceImpl) {
         this.trackServiceImpl = trackServiceImpl;
     }
-//for adding a track::::::::::::::::::::::::::::::::::::::::::::::
+
+    //for adding a track::::::::::::::::::::::::::::::::::::::::::::::
     @PostMapping(value = "track")
     public ResponseEntity<?> saveTrack(@RequestBody Track track) {
         try {
@@ -37,7 +39,8 @@ public class TrackController {
             return new ResponseEntity<String> (ex.getMessage(),HttpStatus.CONFLICT);
         }
     }
-//for viewing list of all tracks::::::::::::::::::::::::::::::::::::::::::::::::
+
+    //for viewing list of all tracks::::::::::::::::::::::::::::::::::::::::::::::::
     @GetMapping(value = "tracks")
     public ResponseEntity<?> listOfTracks() {
         try
@@ -48,6 +51,7 @@ public class TrackController {
             return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
+
     //for finding track by name.........
     @GetMapping(value = "track/{name}")
     public ResponseEntity<?> getTrackByName(@PathVariable("name") String name) {
@@ -60,14 +64,14 @@ public class TrackController {
         }
     }
 
-// for deleting a track::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // for deleting a track::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     @DeleteMapping(value = "delete/{id}")
     public ResponseEntity<?> deleteTrack(@PathVariable("id") int id )
     {
         try
         {
             Track trackDeleted = trackServiceImpl.deleteTrack(id);
-           // return new ResponseEntity<String>("Deleted successfully",HttpStatus.OK);
+            // return new ResponseEntity<String>("Deleted successfully",HttpStatus.OK);
             return new ResponseEntity<Track>(trackDeleted,HttpStatus.OK);
         }
         catch (TrackNotFound e)
