@@ -69,21 +69,21 @@ public class TrackDBServiceImplTest {
 
     }
 
-    @Test
-    public void deleteTrack() throws Exception{
-        Track track = new Track();
-        track.setName("Track3");
-        track.setComment("Comment3");
-        track.setId(103);
-        //trackRepository.save(track);
-
-        when(trackRepository.findById(track.getId())).thenReturn(track);
-
-        Track actual = trackDBService.deleteTrack(track.getId());
-
-        assertEquals(actual,track);
-        verify(trackRepository,times(1)).deleteById(track.getId());
-    }
+//    @Test
+//    public void deleteTrack() throws Exception{
+//        Track track = new Track();
+//        track.setName("Track3");
+//        track.setComment("Comment3");
+//        track.setId(103);
+//        //trackRepository.save(track);
+//
+//        when(trackRepository.findById(track.getId())).thenReturn(track);
+//
+//        Track actual = trackDBService.deleteTrack(track.getId());
+//
+//        assertEquals(actual,track);
+//        verify(trackRepository,times(1)).deleteById(track.getId());
+//    }
 
     @Test
     public void updateTrack() {
